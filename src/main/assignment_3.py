@@ -4,26 +4,27 @@
 # Asignment: Assignment 3
 
 
-# import libraries
+# import required libraries
+
 import numpy as np
 
-## Question 1 - Euler Method with the following details: function - t - y^2; range - 0 < t < 2; iterations - 10;
-##              initial point - f(0) = 1
 
-def function_given(t, y):
+# Question 1 Function: Euler's Method
+
+def given_function(t, y):
     return (t - y**2)
 
 def eulers_method(t, y, iterations, x):
     h = (x - t) / iterations
 
     for unused_variable in range(iterations):
-        y = y + (h * function_given(t, y))
+        y = y + (h * given_function(t, y))
         t = t + h
    
-    print(round(y, ndigits = 5), "\n")
+    print("%.5f" % y, "\n")
 
-## Question 2 - Runge-Kutta with the following details: function - t - y^2; range - 0 < t < 2; iterations - 10;
-##              initial point - f(0) = 1
+
+# Question 2 Function: Runge-Kutta
 
 def func(t, y):
     return (t - y**2)
@@ -41,5 +42,56 @@ def runge_kutta(t, y, iterations, x):
 
         t = t + h
 
-    print(round(y, ndigits = 5), "\n")
+    print("%.5f" % y, "\n")
+
+
+# Question 3 Function: Gaussian Elimination Function
+
+def gaussian_elimination(gaussian_matrix):
+    size = gaussian_matrix.shape[0]
+
+    for i in range(size):
+        pivot = i
+        while gaussian_matrix[pivot, i] == 0:
+            pivot += 1
+   
+        gaussian_matrix[[i, pivot]] = gaussian_matrix[[pivot, i]]
+
+        for j in range(i + 1, size):
+            factor = gaussian_matrix[j, i] / gaussian_matrix[i, i]
+            gaussian_matrix[j, i:] = gaussian_matrix[j, i:] - factor * gaussian_matrix[i, i:]
+
+    inputs = np.zeros(size)
+
+    for i in range(size - 1, -1, -1):
+        inputs[i] = (gaussian_matrix[i, -1] - np.dot(gaussian_matrix[i, i: -1], inputs[i:])) / gaussian_matrix[i, i]
+   
+    final_answer = np.array([int(inputs[0]), int(inputs[1]), int(inputs[2])], dtype=np.double)
+    print(final_answer, "\n")
+
+
+# Question 4: LU Factorization Function
+#           a) print out the matrix determinant
+#           b) print out the L matrix
+#           c) print out the U matrix
+
+def lu_factorization(lu_matrix):
+    size = lu_matrix.shape[0]
+
+    l_factor = np.eye(size)
+    u_factor = np.zeros_like(lu_matrix)
+
+    for i in range(size):
+        for j in range(i, size):
+            u_factor[i, j] = (lu_matrix[i, j] - np.dot(l_factor[i, :i], u_factor[:i, j]))
+   
+        for j in range(i + 1, size):
+            l_factor[j, i] = (lu_matrix[j, i] - np.dot(l_factor[j, :i], u_factor[:i, i])) / u_factor[i, i]
+   
+    determinant = np.linalg.det(lu_matrix)
+
+    print("%.5f" % determinant, "\n")
+    print(l_factor, "\n")
+    print(u_factor, "\n")
+
 
