@@ -95,3 +95,20 @@ def lu_factorization(lu_matrix):
     print(u_factor, "\n")
 
 
+# Question 5: Function to determine if the following matrix is diagonally dominate (true/false)
+
+def diagonally_dominant(dd_matrix, n):
+
+    for i in range(0, n):
+        total = 0
+        for j in range(0, n):
+            total = total + abs(dd_matrix[i][j])
+       
+        total = total - abs(dd_matrix[i][i])
+   
+    if abs(dd_matrix[i][i]) < total:
+        print("False\n")
+    else:
+        print("True\n")
+
+
