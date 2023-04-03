@@ -112,3 +112,53 @@ def diagonally_dominant(dd_matrix, n):
         print("True\n")
 
 
+# Question 6: Function to determine if the matrix is a positive definite (true/false)
+
+def positive_definite(pd_matrix):
+    eigenvalues = np.linalg.eigvals(pd_matrix)
+
+    if np.all(eigenvalues > 0):
+        print("True")
+    else:
+        print("False")
+
+
+# main function
+
+if __name__ == "__main__":
+   
+    # Print Question 1
+    t_0 = 0
+    y_0 = 1
+    iterations = 10
+    x = 2
+    eulers_method(t_0, y_0, iterations, x)
+
+
+    # Print Question 2
+    t_0 = 0
+    y_0 = 1
+    iterations = 10
+    x = 2
+    runge_kutta(t_0, y_0, iterations, x)
+
+
+    # Print Question 3
+    gaussian_matrix = np.array([[2, -1, 1, 6], [1, 3, 1, 0], [-1, 5, 4, -3]])
+    gaussian_elimination(gaussian_matrix)
+
+
+    # Print Question 4
+    lu_matrix = np.array([[1, 1, 0, 3], [2, 1, -1, 1], [3, -1, -1, 2], [-1, 2, 3, -1]], dtype = np.double)
+    lu_factorization(lu_matrix)
+
+
+    # Print Question 5
+    n = 5
+    dd_matrix = np.array([[9, 0, 5, 2, 1], [3, 9, 1, 2, 1], [0, 1, 7, 2, 3], [4, 2, 3, 12, 2], [3, 2, 4, 0, 8]])
+    diagonally_dominant(dd_matrix, n)
+
+
+    # Print Question 6
+    pd_matrix = np.matrix([[2, 2, 1], [2, 3, 0], [1, 0, 2]])
+    positive_definite(pd_matrix)
